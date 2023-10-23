@@ -1,4 +1,4 @@
-package picpay.transaction.domain;
+package picpay.transaction.domain.users;
 
 import jakarta.persistence.*;
 import lombok.Data;

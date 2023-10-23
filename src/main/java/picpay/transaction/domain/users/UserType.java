@@ -1,4 +1,4 @@
-package picpay.transaction.domain;
+package picpay.transaction.domain.users;
 
 public enum UserType {
     COMMOM,
