@@ -3,6 +3,7 @@ package picpay.transaction.data.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import picpay.transaction.core.dtos.TransactionDto;
 import picpay.transaction.domain.transactions.Transaction;
@@ -12,17 +13,18 @@ import picpay.transaction.infra.repositories.TransactionRepository;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Map;
-
+@Service
 public class TransactionService {
     @Autowired
     private TransactionRepository repository;
     @Autowired
     private UserService userService;
-
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private NotificationService notificationService;
 
-    public void create(TransactionDto transactionDto) throws Exception {
+    public Transaction create(TransactionDto transactionDto) throws Exception {
         User sender = this.userService.findById(transactionDto.senderId());
         User receiver = this.userService.findById(transactionDto.receiverId());
 
@@ -43,6 +45,11 @@ public class TransactionService {
         this.repository.save(newTransaction);
         this.userService.save(sender);
         this.userService.save(receiver);
+
+        this.notificationService.send(sender, "Transação realizada com sucesso");
+        this.notificationService.send(receiver, "Transação recebida com sucesso");
+
+        return newTransaction;
     }
 
     public boolean authorizeTransaction(User sender, BigDecimal value) {
