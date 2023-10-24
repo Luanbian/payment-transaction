@@ -2,6 +2,7 @@ package picpay.transaction.domain.users;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import picpay.transaction.core.dtos.UserDto;
 
 import java.math.BigDecimal;
 
@@ -26,4 +27,14 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    public User(UserDto data) {
+        this.firstName = data.firstName();
+        this.lastName = data.lastName();
+        this.document = data.document();
+        this.email = data.email();
+        this.password = data.password();
+        this.balance = data.balance();
+        this.userType = data.userType();
+    }
 }
