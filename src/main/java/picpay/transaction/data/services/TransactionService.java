@@ -12,6 +12,7 @@ import picpay.transaction.infra.repositories.TransactionRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 @Service
 public class TransactionService {
@@ -50,6 +51,10 @@ public class TransactionService {
         this.notificationService.send(receiver, "Transação recebida com sucesso");
 
         return newTransaction;
+    }
+
+    public List<Transaction> getAll() {
+        return this.repository.findAll();
     }
 
     public boolean authorizeTransaction(User sender, BigDecimal value) {
