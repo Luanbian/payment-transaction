@@ -43,7 +43,7 @@ public class TransactionService {
         this.repository.save(newTransaction);
         this.userService.save(sender);
         this.userService.save(receiver);
-     }
+    }
 
     public boolean authorizeTransaction(User sender, BigDecimal value) {
        ResponseEntity<Map> authorizationResponse = restTemplate.getForEntity("url", Map.class);
