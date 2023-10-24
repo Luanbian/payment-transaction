@@ -17,7 +17,7 @@ public class NotificationService {
     public void send(User user, String message) throws Exception {
         String email = user.getEmail();
         NotificationDto notificationRequest = new NotificationDto(email, message);
-        ResponseEntity<String> notificationResponse = restTemplate.postForEntity("url", notificationRequest, String.class);
+        ResponseEntity<String> notificationResponse = restTemplate.postForEntity("http://o4d9z.mocklab.io/notify", notificationRequest, String.class);
 
         if(!(notificationResponse.getStatusCode() == HttpStatus.OK)) {
             System.out.println("Erro ao enviar notificação");
