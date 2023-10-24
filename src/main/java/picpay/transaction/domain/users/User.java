@@ -2,6 +2,7 @@ package picpay.transaction.domain.users;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import picpay.transaction.core.dtos.UserDto;
 
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 @Entity(name = "users")
 @Table(name="users")
 @Data
+@NoArgsConstructor
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
