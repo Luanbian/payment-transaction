@@ -39,26 +39,8 @@ class TransactionServiceTest {
     @Test
     @DisplayName("Should create transaction when everything is Ok")
     void createSuccess() throws Exception{
-        UserDto userSenderDto = new UserDto(
-                "Luan",
-                "Almeida",
-                "501934",
-                new BigDecimal(10),
-                "luan.almeida@gmail.com",
-                "senha",
-                UserType.COMMOM
-        );
-        UserDto userReceiverDto = new UserDto(
-                "Maria",
-                "Julia",
-                "03838",
-                new BigDecimal(10),
-                "maria.julia@gmail.com",
-                "senha",
-                UserType.COMMOM
-        );
-        User sender = new User(userSenderDto);
-        User receiver = new User(userReceiverDto);
+        User sender = this.createSender();
+        User receiver = this.createReceiver();
 
         when(userService.findById(1L)).thenReturn(sender);
         when(userService.findById(2L)).thenReturn(receiver);
@@ -83,26 +65,8 @@ class TransactionServiceTest {
     @Test
     @DisplayName("Should throw exception when transaction is not allowed")
     void createException() throws Exception{
-        UserDto userSenderDto = new UserDto(
-                "Luan",
-                "Almeida",
-                "501934",
-                new BigDecimal(10),
-                "luan.almeida@gmail.com",
-                "senha",
-                UserType.COMMOM
-        );
-        UserDto userReceiverDto = new UserDto(
-                "Maria",
-                "Julia",
-                "03838",
-                new BigDecimal(10),
-                "maria.julia@gmail.com",
-                "senha",
-                UserType.COMMOM
-        );
-        User sender = new User(userSenderDto);
-        User receiver = new User(userReceiverDto);
+        User sender = this.createSender();
+        User receiver = this.createReceiver();
 
         when(userService.findById(1L)).thenReturn(sender);
         when(userService.findById(2L)).thenReturn(receiver);
@@ -115,5 +79,33 @@ class TransactionServiceTest {
         });
 
         Assertions.assertEquals("Transação não autorizada", exception.getMessage());
+    }
+
+    private User createSender() {
+        UserDto userSenderDto = new UserDto(
+                "Luan",
+                "Almeida",
+                "501934",
+                new BigDecimal(10),
+                "luan.almeida@gmail.com",
+                "senha",
+                UserType.COMMOM
+        );
+        User sender = new User(userSenderDto);
+        return sender;
+    }
+
+    private User createReceiver() {
+        UserDto userReceiverDto = new UserDto(
+                "Maria",
+                "Julia",
+                "03838",
+                new BigDecimal(10),
+                "maria.julia@gmail.com",
+                "senha",
+                UserType.COMMOM
+        );
+        User receiver = new User(userReceiverDto);
+        return receiver;
     }
 }
