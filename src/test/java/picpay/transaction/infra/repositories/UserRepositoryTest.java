@@ -40,6 +40,15 @@ class UserRepositoryTest {
         assertThat(result.isPresent()).isTrue();
     }
 
+    @Test
+    @DisplayName("Should not get user from database when user not exist")
+    void findUserByDocumentException() {
+        String document = "50193403838";
+        Optional<User> result = this.userRepository.findUserByDocument(document);
+        assertThat(result.isEmpty()).isTrue();
+    }
+
+
     private User create(UserDto data) {
         User newUser = new User(data);
         this.entityManager.persist(newUser);
